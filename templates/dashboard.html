@@ -1,0 +1,219 @@
+
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block page_heading %}
+Dashboard Overview
+{% endblock %}
+
+{% block content %}
+
+<div class="welcome-row">
+
+    <div>
+        <h1>Good day, Administrator ✦</h1>
+        <p>Here's what's happening with attendance today.</p>
+    </div>
+
+    <div class="date-chip">
+        ▣ {{ today }}
+    </div>
+
+</div>
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+        <div class="stat-top">
+            <span>Total Students</span>
+            <span class="stat-icon blue">♙</span>
+        </div>
+
+        <div class="stat-number">{{ total }}</div>
+
+        <div class="stat-foot">
+            Registered students
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-top">
+            <span>Present Today</span>
+            <span class="stat-icon green">✓</span>
+        </div>
+
+        <div class="stat-number">{{ present }}</div>
+
+        <div class="stat-foot positive">
+            Marked present today
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-top">
+            <span>Absent Today</span>
+            <span class="stat-icon orange">−</span>
+        </div>
+
+        <div class="stat-number">{{ absent }}</div>
+
+        <div class="stat-foot">
+            Not yet marked present
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-top">
+            <span>Attendance Rate</span>
+            <span class="stat-icon purple">％</span>
+        </div>
+
+        <div class="stat-number">
+            {{ rate }}<small>%</small>
+        </div>
+
+        <div class="progress">
+            <progress value="{{ rate|int }}" max="100" aria-label="Attendance rate"></progress>
+        </div>
+    </div>
+
+</div>
+
+<div class="content-grid">
+
+    <div class="panel">
+
+        <div class="panel-head">
+
+            <div>
+                <h3>Attendance Activity</h3>
+                <p>Recent attendance entries</p>
+            </div>
+
+            <a class="text-link" href="{{ url_for('records') }}">
+                View all →
+            </a>
+
+        </div>
+
+        {% if recent %}
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>STUDENT</th>
+                        <th>DATE</th>
+                        <th>TIME</th>
+                        <th>STATUS</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for r in recent %}
+
+                    <tr>
+
+                        <td>
+                            <b>{{ r.student_name }}</b>
+                            <small class="sub-cell">
+                                ID: {{ r.student_id[:7] }}
+                            </small>
+                        </td>
+
+                        <td>{{ r.date }}</td>
+
+                        <td>{{ r.time }}</td>
+
+                        <td>
+                            <span class="status present">
+                                {{ r.status }}
+                            </span>
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-state">
+
+            <div class="empty-icon">▤</div>
+
+            <b>No attendance yet</b>
+
+            <p>
+                Attendance entries will appear here.
+            </p>
+
+            <a class="btn primary"
+            href="{{ url_for('attendance') }}">
+                Open Face Attendance
+            </a>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+    <div class="panel quick-panel">
+
+        <div class="panel-head">
+            <div>
+                <h3>Quick Actions</h3>
+                <p>Common tasks</p>
+            </div>
+        </div>
+
+        <a class="quick-action" href="{{ url_for('students') }}">
+            <span class="quick-icon blue">＋</span>
+            <span>
+                <b>Add a student</b>
+                <small>Register a student profile</small>
+            </span>
+            <strong>→</strong>
+        </a>
+
+        <a class="quick-action" href="{{ url_for('attendance') }}">
+            <span class="quick-icon green">◎</span>
+            <span>
+                <b>Take attendance</b>
+                <small>Use the live camera</small>
+            </span>
+            <strong>→</strong>
+        </a>
+
+        <a class="quick-action" href="{{ url_for('analysis') }}">
+            <span class="quick-icon purple">⌁</span>
+            <span>
+                <b>View AI analysis</b>
+                <small>Explore attendance insights</small>
+            </span>
+            <strong>→</strong>
+        </a>
+
+        <div class="tip-box">
+            <b>Quick tip</b>
+            <p>
+                Enroll a clear face photo for each student
+                before using live face recognition.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

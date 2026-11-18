@@ -1,0 +1,59 @@
+[
+    {
+        "id": "STU001",
+        "name": "Rahul Sharma",
+        "roll": "101",
+        "course": "BA Programme",
+        "email": "rahul@gmail.com",
+        "face_enrolled": true,
+        "face_file": "STU001.jpg"
+    },
+    {
+        "id": "STU002",
+        "name": "Priya Verma",
+        "roll": "102",
+        "course": "BCom",
+        "email": "priya@gmail.com",
+        "face_enrolled": false,
+        "face_file": null
+    },
+    {
+        "id": "STU003",
+        "name": "Aman Kumar",
+        "roll": "103",
+        "course": "BCA",
+        "email": "aman@gmail.com",
+        "face_enrolled": false,
+        "face_file": null
+    },
+    {
+        "id": "6e56d9a314a1",
+        "name": "Akanksha",
+        "roll": "104",
+        "course": "BA Program",
+        "email": "akanksha@gmail.com",
+        "created_at": "2026-11-18T16:39:01.988900",
+        "face_enrolled": false,
+        "face_file": null
+    },
+    {
+        "id": "3c6a3fdcaaf5",
+        "name": "Rani",
+        "roll": "105",
+        "course": "BA Programm",
+        "email": "rani@gmail.com",
+        "created_at": "2026-11-18T17:20:00.609120",
+        "face_enrolled": false,
+        "face_file": null
+    },
+    {
+        "id": "585ffa63f6b4",
+        "name": "Rani Kumari",
+        "roll": "106",
+        "course": "BA Programm",
+        "email": "rani123@gmail.com",
+        "created_at": "2026-11-18T17:31:01.924073",
+        "face_enrolled": true,
+        "face_file": "585ffa63f6b4.jpg"
+    }
+]

@@ -1,0 +1,89 @@
+
+{% extends "base.html" %}
+
+{% block title %}Attendance Records{% endblock %}
+{% block page_heading %}Attendance Records{% endblock %}
+
+{% block content %}
+
+<div class="welcome-row">
+    <div>
+        <h1>Attendance Records</h1>
+        <p>Review attendance history.</p>
+    </div>
+
+    <span class="count-chip">
+        {{ records|length }} Records
+    </span>
+</div>
+
+<div class="panel">
+
+    <div class="panel-head">
+        <div>
+            <h3>All Attendance Entries</h3>
+            <p>Sorted newest first</p>
+        </div>
+
+        <input
+            class="table-search"
+            id="tableSearch"
+            placeholder="Search student or date..."
+        >
+    </div>
+
+    {% if records %}
+
+    <div class="table-wrap">
+
+        <table id="recordsTable">
+
+            <thead>
+                <tr>
+                    <th>STUDENT</th>
+                    <th>STUDENT ID</th>
+                    <th>DATE</th>
+                    <th>TIME</th>
+                    <th>METHOD</th>
+                    <th>STATUS</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for r in records %}
+
+                <tr>
+                    <td><b>{{ r.student_name }}</b></td>
+                    <td>{{ r.student_id[:8] }}</td>
+                    <td>{{ r.date }}</td>
+                    <td>{{ r.time }}</td>
+                    <td>{{ r.method }}</td>
+                    <td>
+                        <span class="status present">
+                            {{ r.status }}
+                        </span>
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+        <div class="empty-icon">▤</div>
+        <b>No Records Available</b>
+        <p>Attendance entries will appear here.</p>
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

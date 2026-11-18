@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}AttendAI{% endblock %}</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+
+{% if session.get('admin_logged_in') %}
+
+<div class="app-shell">
+
+    <aside class="sidebar">
+
+        <a class="brand" href="{{ url_for('dashboard') }}">
+            <span class="brand-mark">A</span>
+            <span>Attend<span class="brand-light">AI</span></span>
+        </a>
+
+        <div class="sidebar-label">MAIN MENU</div>
+
+        <nav>
+            <a href="{{ url_for('dashboard') }}">▦ Dashboard</a>
+            <a href="{{ url_for('students') }}">♙ Students</a>
+            <a href="{{ url_for('attendance') }}">◉ Live Attendance</a>
+            <a href="{{ url_for('records') }}">▤ Attendance Records</a>
+            <a href="{{ url_for('analysis') }}">▥ Analysis</a>
+            <a href="{{ url_for('performance') }}">★ Performance</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="admin-profile">
+                <div class="admin-avatar">A</div>
+                <div>
+                    <b>Administrator</b>
+                    <small>System Admin</small>
+                </div>
+            </div>
+
+            <a href="{{ url_for('logout') }}" class="logout-link">
+                ↪ Logout
+            </a>
+        </div>
+
+    </aside>
+
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <h2>{% block page_heading %}Dashboard{% endblock %}</h2>
+                <p>Smart Campus Attendance Management</p>
+            </div>
+
+            <div class="admin-badge">
+                <span class="online-dot"></span>
+                Admin Online
+            </div>
+        </header>
+
+{% else %}
+
+    <main class="guest-content">
+
+{% endif %}
+
+        <!-- FLASH MESSAGES -->
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="alert
+                    {% if category == 'success' %}
+                    alert-success
+                    {% else %}
+                    alert-danger
+                    {% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endwith %}
+
+        <!-- ALL PAGE CONTENT -->
+
+        {% block content %}{% endblock %}
+
+{% if session.get('admin_logged_in') %}
+
+        <footer>
+            © 2026 AttendAI | Smart Attendance System
+        </footer>
+
+    </main>
+</div>
+
+{% else %}
+
+    </main>
+
+{% endif %}
+
+{% block scripts %}{% endblock %}
+
+</body>
+</html>

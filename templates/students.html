@@ -1,0 +1,271 @@
+
+{% extends "base.html" %}
+
+{% block title %}Students{% endblock %}
+
+{% block page_heading %}Student Management{% endblock %}
+
+{% block content %}
+
+<div class="welcome-row">
+    <div>
+        <h1>Student Management</h1>
+        <p>Manage student profiles and face enrollment.</p>
+    </div>
+
+    <span class="count-chip">
+        {{ students|length }} Students
+    </span>
+</div>
+
+<div class="content-grid student-grid">
+
+    <!-- ADD STUDENT FORM -->
+
+    <div class="panel">
+
+        <div class="panel-head">
+            <div>
+                <h3>Add New Student</h3>
+                <p>Enter student details below.</p>
+            </div>
+        </div>
+
+        <form method="POST"
+              class="form-stack"
+              id="studentForm">
+
+            <label>Full Name *</label>
+
+            <input
+                type="text"
+                name="name"
+                placeholder="Enter student name"
+                required
+            >
+
+            <label>Roll Number *</label>
+
+            <input
+                type="text"
+                name="roll"
+                placeholder="Enter roll number"
+                required
+            >
+
+            <label>Course / Class</label>
+
+            <input
+                type="text"
+                name="course"
+                placeholder="BA Programme"
+            >
+
+            <label>Email Address</label>
+
+            <input
+                type="email"
+                name="email"
+                placeholder="student@example.com"
+            >
+
+            <!-- FACE ENROLLMENT -->
+
+            <div class="camera-enroll">
+
+                <div class="camera-title">
+                    <b>Face Enrollment</b>
+                    <span class="optional">OPTIONAL</span>
+                </div>
+
+                <p>
+                    Take the student's permission before
+                    collecting and storing a face sample.
+                </p>
+
+                <video
+                    id="enrollVideo"
+                    autoplay
+                    playsinline
+                    muted>
+                </video>
+
+                <canvas
+                    id="enrollCanvas"
+                    hidden>
+                </canvas>
+
+                <input
+                    type="hidden"
+                    name="face_image"
+                    id="faceImage"
+                >
+
+                <div class="button-row">
+
+
+                 <button
+                    type="button"
+                    class="btn secondary"
+                    id="startEnroll">
+                    Start Camera
+                </button>
+
+                <button
+                    type="button"
+                    class="btn primary"
+                    id="captureEnroll"
+                    disabled>
+                    Capture Face
+                </button>
+
+                </div>
+
+                <div id="enrollStatus" class="camera-status">
+                    Camera is off.
+                </div>
+
+            </div>
+
+            <!-- CONSENT -->
+
+            <label class="check-row">
+
+                <input
+                    type="checkbox"
+                    name="consent"
+                    value="yes"
+                >
+
+                Student has given permission for local face enrollment.
+
+            </label>
+
+            <!-- SUBMIT -->
+
+            <button
+                class="btn primary full"
+                type="submit">
+                Save Student →
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- REGISTERED STUDENTS -->
+
+    <div class="panel">
+
+        <div class="panel-head">
+            <div>
+                <h3>Registered Students</h3>
+                <p>Student directory</p>
+            </div>
+        </div>
+
+        {% if students %}
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>STUDENT</th>
+                        <th>ROLL NO.</th>
+                        <th>FACE</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for s in students %}
+
+                    <tr>
+
+                        <td>
+                            <b>{{ s.name }}</b>
+
+                            <small class="sub-cell">
+                                {{ s.course or 'Course not set' }}
+                            </small>
+                        </td>
+
+                        <td>{{ s.roll }}</td>
+
+                        <td>
+
+                            {% if s.face_enrolled %}
+
+                            <span class="status present">
+                                Enrolled
+                            </span>
+
+                            {% else %}
+
+                            <span class="status pending">
+                                Not Enrolled
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            <form
+                                method="POST"
+                                action="{{ url_for('delete_student', student_id=s.id) }}"
+                                onsubmit="return confirm('Are you sure you want to delete this student?')">
+
+                                <button
+                                    class="icon-button danger"
+                                    type="submit">
+                                    Delete
+                                </button>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        {% else %}
+
+        <div class="empty-state compact">
+
+            <div class="empty-icon">♙</div>
+
+            <b>No Students Registered</b>
+
+            <p>Add your first student using the form.</p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+<!-- CAMERA JAVASCRIPT -->
+
+{% block scripts %}
+
+<script src="{{ url_for('static', filename='js/camera.js') }}"></script>
+
+{% endblock %}

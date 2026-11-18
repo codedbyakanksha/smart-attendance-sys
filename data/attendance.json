@@ -1,0 +1,29 @@
+[
+    {
+        "id": "ATT001",
+        "student_id": "STU001",
+        "student_name": "Rahul Sharma",
+        "date": "2026-11-18",
+        "time": "09:15:00",
+        "status": "Present",
+        "method": "Face Recognition"
+    },
+    {
+        "id": "ATT002",
+        "student_id": "STU002",
+        "student_name": "Priya Verma",
+        "date": "2026-11-18",
+        "time": "09:20:00",
+        "status": "Present",
+        "method": "Manual"
+    },
+    {
+        "id": "a6557e3d3ebd",
+        "student_id": "585ffa63f6b4",
+        "student_name": "Rani Kumari",
+        "date": "2026-11-18",
+        "time": "17:31:24",
+        "status": "Present",
+        "method": "Face Recognition"
+    }
+]

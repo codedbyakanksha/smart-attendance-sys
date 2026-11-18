@@ -1,0 +1,101 @@
+
+{% extends "base.html" %}
+
+{% block title %}Admin Login{% endblock %}
+
+{% block content %}
+
+<div class="login-page">
+
+    <div class="login-art">
+
+        <div class="login-brand">
+            <span class="brand-mark">A</span>
+            AttendAI
+        </div>
+
+        <div class="art-copy">
+
+            <span class="pill">INTELLIGENT CAMPUS</span>
+
+            <h1>
+                Attendance,<br>
+                <em>reimagined.</em>
+            </h1>
+
+            <p>
+                A smarter way to manage student attendance
+                with locally processed face recognition.
+            </p>
+
+        </div>
+
+        <div class="art-footer">
+            SMART ATTENDANCE MANAGEMENT
+        </div>
+
+    </div>
+
+    <div class="login-panel">
+
+        <div class="login-box">
+
+            <div class="mobile-brand">
+                <span class="brand-mark">A</span>
+                AttendAI
+            </div>
+
+            <div class="eyebrow">ADMINISTRATOR ACCESS</div>
+
+            <h2>Welcome back</h2>
+
+            <p class="muted">
+                Sign in to manage your campus attendance.
+            </p>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                    <div class="flash {{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endwith %}
+
+            <form method="POST" class="form-stack">
+
+                <label>Username</label>
+
+                <input
+                    type="text"
+                    name="username"
+                    placeholder="Enter admin username"
+                    required
+                >
+
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter password"
+                    required
+                >
+
+                <button class="btn primary full" type="submit">
+                    Sign in →
+                </button>
+
+            </form>
+
+            <div class="login-note">
+                Demo username: <b>admin</b><br>
+                Demo password: <b>ChangeMe123!</b>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

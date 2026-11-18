@@ -1,0 +1,100 @@
+
+{% extends "base.html" %}
+
+{% block title %}AI Analysis{% endblock %}
+{% block page_heading %}Attendance Analysis{% endblock %}
+
+{% block content %}
+
+<div class="welcome-row">
+    <div>
+        <h1>Attendance Analysis</h1>
+        <p>Understand student attendance patterns.</p>
+    </div>
+
+    <span class="count-chip">
+        {{ total }} Students
+    </span>
+</div>
+
+<div class="panel">
+
+    <div class="panel-head">
+        <div>
+            <h3>Student Attendance Summary</h3>
+            <p>Attendance on recorded dates</p>
+        </div>
+    </div>
+
+    {% if summary %}
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>STUDENT</th>
+                    <th>ROLL NO.</th>
+                    <th>DAYS PRESENT</th>
+                    <th>ATTENDANCE RATE</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for s in summary %}
+
+                <tr>
+
+                    <td><b>{{ s.name }}</b></td>
+
+                    <td>{{ s.roll }}</td>
+
+                    <td>{{ s.attended }}</td>
+
+                    <td>
+
+                        <div class="rate-cell">
+
+                            <div class="progress">
+                                <progress value="{{ s.percent }}" max="100" aria-label="Attendance rate"></progress>
+                            </div>
+
+                            <b>{{ s.percent }}%</b>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+        <b>Not Enough Data Yet</b>
+        <p>Register students and record attendance.</p>
+    </div>
+
+    {% endif %}
+
+</div>
+
+<div class="notice">
+    <b>About This Analysis</b>
+    <p>
+        This is a basic attendance summary, not a predictive
+        AI model. The percentage is calculated using recorded
+        attendance dates, not an official academic calendar.
+    </p>
+</div>
+
+{% endblock %}

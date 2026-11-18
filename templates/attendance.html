@@ -1,0 +1,156 @@
+
+{% extends "base.html" %}
+
+{% block title %}Face Attendance{% endblock %}
+
+{% block page_heading %}
+Face Recognition Attendance
+{% endblock %}
+
+{% block content %}
+
+<div class="welcome-row">
+
+    <div>
+        <h1>Live Face Attendance</h1>
+        <p>Recognize enrolled students and record attendance.</p>
+    </div>
+
+    <span class="live-chip">
+        <i></i> LIVE SCAN
+    </span>
+
+</div>
+
+<div class="attendance-layout">
+
+    <div class="panel camera-panel">
+
+        <div class="panel-head">
+
+            <div>
+                <h3>Camera Scanner</h3>
+                <p>Allow camera access and keep one face in frame.</p>
+            </div>
+
+            <span class="camera-lock">
+                LOCAL PROCESSING
+            </span>
+
+        </div>
+
+        <div class="scan-stage">
+
+            <video
+                id="scanVideo"
+                autoplay
+                playsinline
+                muted>
+            </video>
+
+            <canvas id="scanCanvas" hidden></canvas>
+
+            <div class="scan-overlay">
+
+                <span class="corner tl"></span>
+                <span class="corner tr"></span>
+                <span class="corner bl"></span>
+                <span class="corner br"></span>
+
+                <div class="scan-line"></div>
+
+            </div>
+
+            <div class="camera-placeholder"
+                 id="cameraPlaceholder">
+
+                <div>◎</div>
+
+                <b>Camera Not Started</b>
+
+                <small>Click Start Camera to begin</small>
+
+            </div>
+
+        </div>
+
+        <div class="button-row scan-buttons">
+
+            <button
+                class="btn secondary"
+                id="startScan">
+                Start Camera
+            </button>
+
+            <button
+                class="btn primary"
+                id="scanNow"
+                disabled>
+                Recognize & Mark Attendance
+            </button>
+
+            <button
+                class="btn ghost"
+                id="stopScan"
+                disabled>
+                Stop
+            </button>
+
+        </div>
+
+        <div id="scanStatus" class="scan-result">
+            Ready. Recognition requires enrolled face samples.
+        </div>
+
+    </div>
+
+    <div class="panel how-panel">
+
+        <div class="panel-head">
+            <div>
+                <h3>How It Works</h3>
+                <p>Three simple steps</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <span>01</span>
+            <div>
+                <b>Start Camera</b>
+                <p>Allow camera permission in your browser.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <span>02</span>
+            <div>
+                <b>Position Your Face</b>
+                <p>Use good lighting and face the camera.</p>
+            </div>
+        </div>
+
+        <div class="step">
+            <span>03</span>
+            <div>
+                <b>Verify & Record</b>
+                <p>The local model checks enrolled face samples.</p>
+            </div>
+        </div>
+
+        <div class="privacy-note">
+            <b>Privacy Reminder</b>
+            <p>
+                Face samples are stored locally.
+                Only use this feature with informed permission.
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/camera.js') }}"></script>
+{% endblock %}

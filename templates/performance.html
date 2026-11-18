@@ -1,0 +1,92 @@
+
+{% extends "base.html" %}
+
+{% block title %}Performance{% endblock %}
+{% block page_heading %}Student Performance{% endblock %}
+
+{% block content %}
+
+<div class="welcome-row">
+    <div>
+        <h1>Student Performance</h1>
+        <p>Compare attendance activity by student.</p>
+    </div>
+</div>
+
+<div class="panel">
+
+    <div class="panel-head">
+        <div>
+            <h3>Attendance Leaderboard</h3>
+            <p>Sorted by recorded attendance rate.</p>
+        </div>
+    </div>
+
+    {% if ranked %}
+
+    <div class="table-wrap">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>RANK</th>
+                    <th>STUDENT</th>
+                    <th>ROLL NO.</th>
+                    <th>DAYS PRESENT</th>
+                    <th>RATE</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for s in ranked %}
+
+                <tr>
+
+                    <td>
+                        <span class="rank-badge">
+                            {{ loop.index }}
+                        </span>
+                    </td>
+
+                    <td><b>{{ s.name }}</b></td>
+
+                    <td>{{ s.roll }}</td>
+
+                    <td>{{ s.attended }}</td>
+
+                    <td>
+
+                        <div class="rate-cell">
+
+                            <progress class="progress" value="{{ s.rate }}" max="100" aria-label="Attendance rate"></progress>
+
+                            <b>{{ s.rate }}%</b>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+        <b>No Performance Data Yet</b>
+        <p>Attendance data will build your leaderboard.</p>
+    </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}
